@@ -72,10 +72,10 @@ def write2csv():
 
     # logging.info(lrcfiles)
     flist = glob.glob(r'*.lrc')
-    # mp3file =
+
     logging.info(flist)
 
-    pattern1 = re.compile(r'00]([\S\s]*)\t?')  # () is the right thing
+    pattern1 = re.compile(r'00]([\S\s]*)\t+')  # () is the right thing
     pattern2 = re.compile(r'\t\t([\S\s]*)\n')
 
     rq = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))
@@ -107,8 +107,6 @@ def write2csv():
             question = "[sound:" + newname + "]"
             if not chinese:
                 answer = english[0]
-            elif not english:
-                answer = ''
             else:
                 answer = english[0] + '\n' + chinese[0]
             logging.info(answer)
