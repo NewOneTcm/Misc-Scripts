@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Date    : 2020-02-18 17:13:10
-# @Author  : Newone 
+# @Author  : Newone
 # @Link    : www.dajingtcm.com
 # @About   : from https://github.com/emmaping/Misc-Scripts/blob/master/ImportAnki%20-Voice%20as%20question.py
 # @Version : $Id$
@@ -67,20 +67,20 @@ def change_filename(rq):
 
 
 def write2csv():
-    curpath = os.getcwd()
-    lrcfiles = curpath + "//*.lrc"
+    # curpath = os.getcwd()
+    # lrcfiles = curpath + "//*.lrc"
 
-    logging.info(lrcfiles)
-    flist = glob.glob(lrcfiles)
+    # logging.info(lrcfiles)
+    flist = glob.glob(r'*.lrc')
     # mp3file =
     logging.info(flist)
 
-    pattern1 = re.compile(r'00]([\S\s]*)\t\t')  # () is the right thing
+    pattern1 = re.compile(r'00]([\S\s]*)\t?')  # () is the right thing
     pattern2 = re.compile(r'\t\t([\S\s]*)\n')
 
     rq = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))
 
-    change_filename(rq)
+    # change_filename(rq)
 
     i = 0
     for file in flist:
@@ -94,19 +94,23 @@ def write2csv():
             english = pattern1.findall(content)
             chinese = pattern2.findall(content)
 
-
-            logging.info(english)
-            logging.info(chinese)
+            logging.info('english is:%r' % english)
+            logging.info('chinese is:%r' % chinese)
 
             mp3file = file[:-3] + "mp3"  # add a mp3 at the end of the file.
             newname = rq + '_' + str(i) + ".mp3"
+            os.rename(mp3file, newname)
 
             logging.info(mp3file)
             logging.info(newname)
 
-
             question = "[sound:" + newname + "]"
-            answer = english[0] + '\n' + chinese[0]
+            if not chinese:
+                answer = english[0]
+            elif not english:
+                answer = ''
+            else:
+                answer = english[0] + '\n' + chinese[0]
             logging.info(answer)
 
             #####################################
@@ -117,7 +121,5 @@ def write2csv():
                 f_csv.writerow([question, answer])
 
 
-
 if __name__ == "__main__":
     write2csv()
-
