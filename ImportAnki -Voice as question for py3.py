@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Date    : 2020-02-18 17:13:10
-# @Author  : Newone (wenlong_cheng@dajingtcm.com)
+# @Author  : Newone 
 # @Link    : www.dajingtcm.com
 # @About   : This is a test
 # @Version : $Id$
