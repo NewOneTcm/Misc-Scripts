@@ -76,6 +76,7 @@ def write2csv():
     logging.info(flist)
 
     pattern1 = re.compile(r'00]([\S\s]*)\t+')  # () is the right thing
+    pattern3 = re.compile(r'00]([\S\s]*)\t?')
     pattern2 = re.compile(r'\t\t([\S\s]*)\n')
 
     rq = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))
@@ -92,6 +93,8 @@ def write2csv():
             logging.info(content)
 
             english = pattern1.findall(content)
+            if not english:
+                english = pattern3.findall(content)
             chinese = pattern2.findall(content)
 
             logging.info('english is:%r' % english)
@@ -99,7 +102,9 @@ def write2csv():
 
             mp3file = file[:-3] + "mp3"  # add a mp3 at the end of the file.
             newname = rq + '_' + str(i) + ".mp3"
-            os.rename(mp3file, newname)
+            if len(english) != 0:
+                os.rename(mp3file, newname)
+                print('the len of english is zero!!!1')
 
             logging.info(mp3file)
             logging.info(newname)
