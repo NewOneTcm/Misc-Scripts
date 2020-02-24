@@ -104,6 +104,7 @@ def write2csv():
             newname = rq + '_' + str(i) + ".mp3"
             if len(english) != 0:
                 os.rename(mp3file, newname)
+            else:
                 print('the len of english is zero!!!1')
 
             logging.info(mp3file)
